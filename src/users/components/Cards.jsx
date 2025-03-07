@@ -69,27 +69,32 @@ const styles = {
 
 const features = [
   {
-    title: "Live Concerts",
+    title: "Upcoming Events",
     description:
-      "Experience the best live concerts from top artists around the world.",
+      "Join us for exciting events including concerts, sports matches, food festivals, and more!",
     imgSrc: "/images/photo-1511578314322-379afb476865.jpg",
+    id: "events",
   },
   {
-    title: "Sports Events",
-    description: "Get front-row access to the most thrilling sports events.",
+    title: "About Our Company",
+    description:
+      "We are dedicated to bringing you the best experiences with seamless ticket booking for various events worldwide.",
     imgSrc: "/images/photo-1511578314322-379afb476865.jpg",
+    id: "about",
   },
   {
-    title: "Food Festivals",
+    title: "Contact Us",
     description:
-      "Indulge in the most delicious food festivals happening near you.",
+      "Follow us on Instagram @ourcompany and connect with us on LinkedIn for the latest updates!",
     imgSrc: "/images/photo-1511578314322-379afb476865.jpg",
+    id: "contact",
   },
   {
-    title: "Tech Conferences",
+    title: "Terms and Conditions",
     description:
-      "Stay updated with the latest technology trends and innovations.",
+      "Read our terms and conditions to understand our policies and how we ensure the best service for you.",
     imgSrc: "/images/photo-1511578314322-379afb476865.jpg",
+    id: "terms",
   },
 ];
 
@@ -116,13 +121,18 @@ const faqs = [
   },
 ];
 
-const FeatureCard = ({ title, description, imgSrc, isReversed }) => (
+const FeatureCard = ({ title, description, imgSrc, link, isReversed }) => (
   <div
     style={{ ...styles.row, flexDirection: isReversed ? "row-reverse" : "row" }}
   >
     <div style={styles.textCol}>
       <h2>{title}</h2>
       <p>{description}</p>
+      {link && (
+        <a href={link} style={{ color: "blue", textDecoration: "underline" }}>
+          Learn More
+        </a>
+      )}
     </div>
     <div style={styles.imgCol}>
       <img src={imgSrc} alt={title} style={styles.img} />
@@ -158,6 +168,7 @@ const Cards = () => {
             title={feature.title}
             description={feature.description}
             imgSrc={feature.imgSrc}
+            link={feature.link}
             isReversed={index % 2 !== 0}
           />
         ))}

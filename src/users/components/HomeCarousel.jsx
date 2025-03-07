@@ -5,12 +5,7 @@ import CarouselImages from "./CarouselImages";
 
 const HomeCarousel = () => {
   const items = CarouselImages.map((image, index) => (
-    <div
-      key={index}
-      className="item"
-      role="presentation"
-      data-value={index + 1}
-    >
+    <div key={index} className="item w-full" role="presentation">
       <img
         src={image.src}
         alt={image.alt}
@@ -24,10 +19,22 @@ const HomeCarousel = () => {
   ));
 
   return (
-    <div className="w-full min-h-[75vh]">
-      {" "}
-      {/* Full width & min height 75vh */}
-      <AliceCarousel items={items} autoPlay autoPlayInterval={3000} infinite />
+    <div className="w-full flex justify-center items-center mt-5">
+      <div className="w-full min-h-[75vh]">
+        <AliceCarousel
+          items={items}
+          autoPlay={true} // Enable autoplay
+          autoPlayInterval={1500} // Faster autoplay (1.5 sec per slide)
+          animationDuration={500} // Quick transition
+          infinite={true} // Loop continuously
+          autoPlayStrategy="none" // Prevent stopping
+          disableButtonsControls={true} // Hide left/right buttons
+          disableDotsControls={true} // Hide bottom dots
+          responsive={{
+            0: { items: 1 }, // Show 1 item on all screen sizes
+          }}
+        />
+      </div>
     </div>
   );
 };

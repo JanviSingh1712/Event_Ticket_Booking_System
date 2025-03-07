@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-8 bg-white rounded shadow-md w-96">
-        <h2 className="mb-6 text-2xl font-semibold text-center">Login</h2>
+      <div className="p-6 bg-white rounded shadow-md w-96">
+        <h2 className="mb-4 text-2xl font-semibold text-center">Login</h2>
         <form>
           <div className="mb-4">
             <label className="block mb-1 text-sm font-medium">Email</label>
@@ -14,7 +15,7 @@ const Login = () => {
               placeholder="Enter your email"
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-4">
             <label className="block mb-1 text-sm font-medium">Password</label>
             <input
               type="password"
@@ -29,6 +30,13 @@ const Login = () => {
             Login
           </button>
         </form>
+
+        <p className="mt-3 text-center text-sm">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-blue-500 hover:underline">
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );
