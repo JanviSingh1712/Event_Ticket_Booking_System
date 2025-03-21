@@ -13,9 +13,12 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loggedInStatus = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedInStatus);
+  }, []);
 
   const handleSellTicketsClick = () => {
     if (!isLoggedIn) {
@@ -23,6 +26,13 @@ export default function Navbar() {
     } else {
       navigate("/sell-tickets");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("token"); // If using a token
+    setIsLoggedIn(false);
+    navigate("/");
   };
 
   return (
@@ -43,9 +53,8 @@ export default function Navbar() {
                   <Link
                     key={item.name}
                     to={item.href}
-                    aria-current={item.current ? "page" : undefined}
                     className={classNames(
-                      item.current
+                      window.location.pathname === item.href
                         ? "bg-gray-900 text-white"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
                       "rounded-md px-3 py-2 text-sm font-medium"
@@ -65,9 +74,16 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Right Section: Login/Signup */}
+            {/* Right Section: Conditional Rendering for Login/Logout */}
             <div className="flex items-center space-x-4">
-              {!isLoggedIn ? (
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                >
+                  Logout
+                </button>
+              ) : (
                 <>
                   <Link
                     to="/login"
@@ -82,17 +98,6 @@ export default function Navbar() {
                     Signup
                   </Link>
                 </>
-              ) : (
-                <button
-                  onClick={() => {
-                    localStorage.removeItem("isLoggedIn");
-                    setIsLoggedIn(false);
-                    navigate("/");
-                  }}
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                >
-                  Logout
-                </button>
               )}
             </div>
           </div>

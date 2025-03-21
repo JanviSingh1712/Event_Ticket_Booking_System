@@ -1,27 +1,25 @@
+import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import cors from "cors";
+import authRoutes from "./routes/auth.js";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 
-// Middleware
 app.use(express.json());
+app.use(cors());
 
-// Basic Route
-app.get("/", (req, res) => {
-  res.send("Backend is running...");
-});
-
-// MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Start Server
+app.use("/auth", authRoutes);
+
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
 );
