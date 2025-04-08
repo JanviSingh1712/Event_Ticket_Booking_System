@@ -1,3 +1,4 @@
+// src/components/Navigation.jsx or Navbar.jsx
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
@@ -21,16 +22,12 @@ export default function Navbar() {
   }, []);
 
   const handleSellTicketsClick = () => {
-    if (!isLoggedIn) {
-      navigate("/login");
-    } else {
-      navigate("/sell-tickets");
-    }
+    navigate("/sell-tickets"); // ✅ Always go to sell-tickets route
   };
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("token"); // If using a token
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     navigate("/");
   };
@@ -40,7 +37,7 @@ export default function Navbar() {
       <Disclosure as="nav" className="bg-gray-800">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            {/* Left Section: Logo + Home + Events + Sell Tickets */}
+            {/* Left section */}
             <div className="flex items-center space-x-6">
               <img
                 alt="Your Company"
@@ -64,7 +61,6 @@ export default function Navbar() {
                   </Link>
                 ))}
 
-                {/* Sell Your Tickets */}
                 <button
                   onClick={handleSellTicketsClick}
                   className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
@@ -74,7 +70,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Right Section: Conditional Rendering for Login/Logout */}
+            {/* Right section */}
             <div className="flex items-center space-x-4">
               {isLoggedIn ? (
                 <button

@@ -1,20 +1,20 @@
 import React from "react";
-import HomeCarousel from "../users/components/HomeCarousel";
-import Footer from "../users/components/Footer";
-import Cards from "../users/components/Cards";
+import HomeCarousel from "../components/HomeCarousel";
+import Footer from "../components/Footer";
+import Cards from "../components/Cards";
 
 const HomePage = () => {
   return (
-    <div>
-      <div>
+    <div className="space-y-16">
+      <section className="mt-4">
         <HomeCarousel />
-      </div>
-      <div>
+      </section>
+      <section>
         <Cards />
-      </div>
-      <div>
+      </section>
+      <footer className="bg-gray-800 text-white">
         <Footer />
-      </div>
+      </footer>
     </div>
   );
 };
